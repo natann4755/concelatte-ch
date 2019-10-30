@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>colcelet</title>
+</head>
+<body>
+    
+    <div id="scrin" style="border: 2px solid black; height: 20px; width:20%">
+
+    </div>
+
+    <div>
+        <button onclick="shoo(1)">1</button>
+        <button onclick="shoo(2)">2</button>
+        <button onclick="shoo(3)">3</button>
+        <button onclick="shoo('+')">+</button>
+    </div>
+    <div>
+        <button onclick="shoo(4)">4</button>
+        <button onclick="shoo(5)">5</button>
+        <button onclick="shoo(6)">6</button>
+        <button onclick="shoo('-')">-</button>
+    </div>
+    <div>
+        <button onclick="shoo(7)">7</button>
+        <button onclick="shoo(8)">8</button>
+        <button onclick="shoo(9)">9</button>
+        <button onclick="shoo('*')">*</button>
+    </div>
+    <div>
+        <button onclick="riset()">c</button>
+        <button onclick="shoo(0)">0</button>
+        <button onclick="shoo('=')">=</button>
+        <button onclick="shoo('/')">/</button>
+    </div>
+
+    <div id="archives">archives <br></div>
+
+    <script>
+        let arrShoo = []
+        arrShoo.push(0)
+        arrShoo.push("+")
+
+        function shoo(opp){
+            if (typeof opp == "number"){ 
+                if (arrShoo.length>2){
+                     if(typeof arrShoo[arrShoo.length-1] == "number"){
+                        arrShoo[arrShoo.length-1]=arrShoo[arrShoo.length-1]*10+opp
+                     }
+                     else {
+                          arrShoo.push(opp)
+                        }
+                     }   
+                else {
+                    arrShoo.push(opp)
+                }        
+            }
+            if (typeof opp != "number"){
+                arrShoo.push(opp) 
+            }
+            
+            document.getElementById('scrin').innerHTML += opp
+
+             
+            if (opp=='='){
+                eqwol()
+            }
+        }
+
+        function eqwol(){
+            let total=0,op='+',numm=0
+            for (let i=0;i<arrShoo.length;i++){
+                let c = arrShoo[i]
+                // if (i==0 && c=="-"){
+                //     numS+=c          
+                // }
+                if (typeof c != "number"){
+                    while (arrShoo.indexOf("*")>-1){
+                        arrShoo[arrShoo.indexOf("*")-1]*=
+
+                    }    
+                    total = colcel(op,total,numm)
+                    op=c
+                }
+                 if (typeof c == "number"){
+                    numm=c
+                }
+               
+            }
+            document.getElementById('scrin').innerHTML += total
+            document.getElementById('archives').innerHTML +=  document.getElementById('scrin').innerHTML
+            document.getElementById('archives').innerHTML+= "<br>"
+            
+        }
+
+        function colcel(op,total,numm){
+            switch (op) {
+                case "+":
+                    total+=numm
+                    return total
+                    break;
+                case "-":
+                    total-=numm
+                    return total
+                    break;
+                case "*":
+                    total*=numm
+                    return total
+                    break;
+                    case "/":
+                    total/=numm
+                    return total
+                    break;
+                default:
+                    alert("erorr") 
+                    break;   
+            }
+        }
+
+        function riset(){
+            document.getElementById('scrin').innerHTML=''
+            arrShoo=[]
+        }
+    
+    
+    </script>
+
+
+
+    
+</body>
+</html>

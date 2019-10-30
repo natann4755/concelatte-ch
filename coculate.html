@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>colcelet</title>
+</head>
+<body>
+    
+    <h2 style="margin: auto;">
+    <div id="scrin" style="border: 2px solid purple; height: 40px; width:13%">
+
+    </div>
+
+    <div>
+        <button onclick="shoo(1)">1</button>
+        <button onclick="shoo(2)">2</button>
+        <button onclick="shoo(3)">3</button>
+        <button onclick="shoo('+')">+</button>
+    </div>
+    <div>
+        <button onclick="shoo(4)">4</button>
+        <button onclick="shoo(5)">5</button>
+        <button onclick="shoo(6)">6</button>
+        <button onclick="shoo('-')">-</button>
+    </div>
+    <div>
+        <button onclick="shoo(7)">7</button>
+        <button onclick="shoo(8)">8</button>
+        <button onclick="shoo(9)">9</button>
+        <button onclick="shoo('*')">*</button>
+    </div>
+    <div>
+        <button onclick="riset()">c</button>
+        <button onclick="shoo(0)">0</button>
+        <button onclick="shoo('=')">=</button>
+        <button onclick="shoo('/')">/</button>
+    </div>
+
+    <p>
+        archives  
+    </p>
+    <div id="archives" style="border: 2px solid purple; height: 150px; width:15%"></div>
+    </h2>
+    <script>
+        let arrShoo = []
+        let total =0
+
+        function shoo(opp){
+            console.log("shoo start",opp)
+            document.getElementById('scrin').innerHTML += opp
+            arrShoo.push(opp) 
+            if (opp=='='){
+                eqwol()
+            }
+            console.log("shoo finish")
+        }
+
+        function eqwol(){
+            console.log("eqwol start")
+            let numS ="",total=0,op='+',numm=0
+            for (let i=0;i<arrShoo.length;i++){
+                let c = arrShoo[i]
+                if (i==0 && c=="-"){
+                    numS+=c
+                }
+               else if (i==0 && typeof c != "number"){
+                    console.error("user clic first operator")
+                }
+                else if (typeof c == "number"){
+                    numS+=c
+                }
+                else if (typeof c != "number"){
+                    numm=parseInt(numS)
+                    total = colcel(op,total,numm)
+                    op=c
+                    numS=''
+                }  
+            }
+            console.log("eqwol for finish")
+            document.getElementById('scrin').innerHTML += total
+            document.getElementById('archives').innerHTML +=  document.getElementById('scrin').innerHTML
+            document.getElementById('archives').innerHTML+= "<br>"
+            console.log("eqwol finish")
+        }
+
+        function colcel(op,total,numm){
+            console.log("colcel start"+op+total+numm)
+            switch (op) {
+                case "+":
+                    total+=numm
+                    return total
+                    break;
+                case "-":
+                    total-=numm
+                    return total
+                    break;
+                case "*":
+                    total*=numm
+                    return total
+                    break;
+                    case "/":
+                    total/=numm
+                    return total
+                    break;
+                default:
+                    alert("erorr") 
+                    break;   
+            }
+            console.log("colcel finish",op,total,numm)
+        }
+
+        function riset(){
+            console.log("riset start")
+            document.getElementById('scrin').innerHTML=''
+            arrShoo=[]
+            console.log("riset finish")
+        }
+    
+    
+    </script>
+
+
+
+    
+</body>
+</html>
